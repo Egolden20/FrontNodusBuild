@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">FrontNodus</string>
+    <string name="nodus_build">Nodus Build</string>
+    <string name="welcome">Welcome</string>
+    <string name="sign_in">SING IN</string>
+    <string name="sign_up">SING UP</string>
+    <string name="continue_with">Continue with</string>
+    
+    <!-- Home Screen -->
+    <string name="welcome_user">Bienvenido %s</string>
+    <string name="construction_date">Gestión: %s de octubre</string>
+    <string name="register_advance">Registrar Avance</string>
+    <string name="register_incident">Registrar Incidencia</string>
+    <string name="schedule">Cronograma</string>
+    <string name="more">Más</string>
+    <string name="my_tasks">Mis tareas</string>
+    <string name="view_all">Ver todas</string>
+    
+    <!-- Register Daily Advance -->
+    <string name="register_daily_advance">Registrar Avance Diario</string>
+    <string name="document_progress">Documenta el progreso de hoy</string>
+    <string name="project">Proyecto</string>
+    <string name="project_hint">Selecciona el Proyecto</string>
+    <string name="task">Tarea</string>
+    <string name="task_hint">Seleccione Tarea</string>
+    <string name="activities_completed">Actividades Realizadas</string>
+    <string name="activities_hint">Describe el trabajo realizado hoy</string>
+    <string name="activities_evidence">Evidencia de Actividades</string>
+    <string name="save_advance">Guardar Avance</string>
+    <string name="camera">Cámara</string>
+    <string name="video">Video</string>
+    <string name="upload">Subir</string>
+    
+    <!-- Report Incident -->
+    <string name="report_incident">Reporte de Incidencia</string>
+    <string name="notify_problems">Notifica problemas o retrasos</string>
+    <string name="incident_type">Tipo de incidencia</string>
+    <string name="incident_type_hint">Seleccione tipo</string>
+    <string name="priority">Prioridad</string>
+    <string name="priority_hint">Seleccione prioridad</string>
+    <string name="detailed_description">Descripción detallada</string>
+    <string name="description_hint">Escribe aquí...</string>
+    <string name="save_report">Guardar Avance</string>
+    
+    <!-- Schedule/Cronograma -->
+    <string name="schedule_title">Cronograma</string>
+    <string name="schedule_subtitle">Calendario de actividades</string>
+    <string name="tab_calendar">Calendario</string>
+    <string name="tab_list">Listado</string>
+    <string name="upcoming_events">Próximos Eventos</string>
+    <string name="event_date_format">%s\n%s</string>
+    
+    <!-- Task Detail -->
+    <string name="task_detail">Detalle de Tarea</string>
+    <string name="tab_checklist">Checklist</string>
+    <string name="tab_files">Archivos</string>
+    <string name="tab_comments">Comentarios</string>
+    <string name="deadline">Fecha Límite</string>
+    <string name="assigned">Asignado</string>
+    <string name="project_label">Proyecto</string>
+    <string name="last_comments">Últimos Comentarios</string>
+    <string name="view_all_comments">Ver todos</string>
+    <string name="add_comment">Agregar Comentario</string>
+    <string name="hours_ago">Hace %s horas</string>
+</resources>

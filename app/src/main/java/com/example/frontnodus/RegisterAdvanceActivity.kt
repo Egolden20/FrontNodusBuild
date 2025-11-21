@@ -1,0 +1,322 @@
+package com.example.frontnodus
+
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
+import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
+class RegisterAdvanceActivity : AppCompatActivity() {
+
+    private lateinit var btnCamera: LinearLayout
+    private lateinit var btnVideo: LinearLayout
+    private lateinit var btnUpload: LinearLayout
+    private lateinit var btnSaveAdvance: Button
+    private lateinit var ivBack: ImageView
+
+    private var currentPhotoUri: Uri? = null
+    private var currentVideoUri: Uri? = null
+
+    // Permission Launchers
+    private lateinit var cameraPermissionLauncher: ActivityResultLauncher<Array<String>>
+    private lateinit var videoPermissionLauncher: ActivityResultLauncher<Array<String>>
+    private lateinit var storagePermissionLauncher: ActivityResultLauncher<Array<String>>
+
+    // Activity Result Launchers
+    private lateinit var takePictureLauncher: ActivityResultLauncher<Uri>
+    private lateinit var recordVideoLauncher: ActivityResultLauncher<Uri>
+    private lateinit var pickFileLauncher: ActivityResultLauncher<Intent>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_register_advance)
+
+        // Initialize views
+        btnCamera = findViewById(R.id.btnCamera)
+        btnVideo = findViewById(R.id.btnVideo)
+        btnUpload = findViewById(R.id.btnUpload)
+        btnSaveAdvance = findViewById(R.id.btnSaveAdvance)
+        ivBack = findViewById(R.id.ivBack)
+
+        // Back button
+        ivBack.setOnClickListener {
+            finish()
+        }
+
+        // Initialize permission launchers
+        initializePermissionLaunchers()
+
+        // Initialize activity result launchers
+        initializeActivityLaunchers()
+
+        // Set click listeners
+        btnCamera.setOnClickListener {
+            checkCameraPermissionAndOpen()
+        }
+
+        btnVideo.setOnClickListener {
+            checkVideoPermissionAndOpen()
+        }
+
+        btnUpload.setOnClickListener {
+            checkStoragePermissionAndOpen()
+        }
+
+        btnSaveAdvance.setOnClickListener {
+            Toast.makeText(this, "Avance guardado", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+    }
+
+    private fun initializePermissionLaunchers() {
+        // Camera Permission Launcher
+        cameraPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            val cameraGranted = permissions[Manifest.permission.CAMERA] ?: false
+
+            if (cameraGranted) {
+                openCamera()
+            } else {
+                showPermissionDeniedDialog("Cámara")
+            }
+        }
+
+        // Video Permission Launcher
+        videoPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            val cameraGranted = permissions[Manifest.permission.CAMERA] ?: false
+            val audioGranted = permissions[Manifest.permission.RECORD_AUDIO] ?: false
+
+            if (cameraGranted && audioGranted) {
+                openVideoRecorder()
+            } else {
+                showPermissionDeniedDialog("Cámara y Audio")
+            }
+        }
+
+        // Storage Permission Launcher
+        storagePermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            val granted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                permissions[Manifest.permission.READ_MEDIA_IMAGES] ?: false ||
+                permissions[Manifest.permission.READ_MEDIA_VIDEO] ?: false
+            } else {
+                permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: false
+            }
+
+            if (granted) {
+                openFilePicker()
+            } else {
+                showPermissionDeniedDialog("Almacenamiento")
+            }
+        }
+    }
+
+    private fun initializeActivityLaunchers() {
+        // Take Picture Launcher
+        takePictureLauncher = registerForActivityResult(
+            ActivityResultContracts.TakePicture()
+        ) { success ->
+            if (success) {
+                Toast.makeText(this, "Foto capturada exitosamente", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Record Video Launcher
+        recordVideoLauncher = registerForActivityResult(
+            ActivityResultContracts.CaptureVideo()
+        ) { success ->
+            if (success) {
+                Toast.makeText(this, "Video grabado exitosamente", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Pick File Launcher
+        pickFileLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                val uri = data?.data
+                if (uri != null) {
+                    Toast.makeText(this, "Archivo seleccionado", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun checkCameraPermissionAndOpen() {
+        when {
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // Permission already granted
+                openCamera()
+            }
+            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+                // Show explanation and request permission
+                showPermissionRationaleDialog(
+                    "Cámara",
+                    "Necesitamos acceso a la cámara para tomar fotos de evidencia."
+                ) {
+                    cameraPermissionLauncher.launch(arrayOf(Manifest.permission.CAMERA))
+                }
+            }
+            else -> {
+                // Request permission directly
+                cameraPermissionLauncher.launch(arrayOf(Manifest.permission.CAMERA))
+            }
+        }
+    }
+
+    private fun checkVideoPermissionAndOpen() {
+        val permissions = arrayOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.RECORD_AUDIO
+        )
+
+        val allGranted = permissions.all {
+            ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
+        }
+
+        when {
+            allGranted -> {
+                openVideoRecorder()
+            }
+            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) ||
+            shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO) -> {
+                showPermissionRationaleDialog(
+                    "Cámara y Audio",
+                    "Necesitamos acceso a la cámara y micrófono para grabar videos."
+                ) {
+                    videoPermissionLauncher.launch(permissions)
+                }
+            }
+            else -> {
+                videoPermissionLauncher.launch(permissions)
+            }
+        }
+    }
+
+    private fun checkStoragePermissionAndOpen() {
+        val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arrayOf(
+                Manifest.permission.READ_MEDIA_IMAGES,
+                Manifest.permission.READ_MEDIA_VIDEO
+            )
+        } else {
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+
+        val allGranted = permissions.any {
+            ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
+        }
+
+        when {
+            allGranted -> {
+                openFilePicker()
+            }
+            else -> {
+                storagePermissionLauncher.launch(permissions)
+            }
+        }
+    }
+
+    private fun openCamera() {
+        try {
+            val photoFile = createImageFile()
+            currentPhotoUri = FileProvider.getUriForFile(
+                this,
+                "${packageName}.fileprovider",
+                photoFile
+            )
+            takePictureLauncher.launch(currentPhotoUri!!)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error al abrir la cámara", Toast.LENGTH_SHORT).show()
+            e.printStackTrace()
+        }
+    }
+
+    private fun openVideoRecorder() {
+        try {
+            val videoFile = createVideoFile()
+            currentVideoUri = FileProvider.getUriForFile(
+                this,
+                "${packageName}.fileprovider",
+                videoFile
+            )
+            recordVideoLauncher.launch(currentVideoUri!!)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error al abrir la grabadora de video", Toast.LENGTH_SHORT).show()
+            e.printStackTrace()
+        }
+    }
+
+    private fun openFilePicker() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "*/*"
+            addCategory(Intent.CATEGORY_OPENABLE)
+            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf(
+                "image/*",
+                "video/*",
+                "application/pdf"
+            ))
+        }
+        pickFileLauncher.launch(intent)
+    }
+
+    private fun createImageFile(): File {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir)
+    }
+
+    private fun createVideoFile(): File {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val storageDir = getExternalFilesDir(Environment.DIRECTORY_MOVIES)
+        return File.createTempFile("VIDEO_${timeStamp}_", ".mp4", storageDir)
+    }
+
+    private fun showPermissionRationaleDialog(
+        permissionName: String,
+        message: String,
+        onPositive: () -> Unit
+    ) {
+        AlertDialog.Builder(this)
+            .setTitle("Permiso necesario")
+            .setMessage(message)
+            .setPositiveButton("Aceptar") { _, _ -> onPositive() }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun showPermissionDeniedDialog(permissionName: String) {
+        AlertDialog.Builder(this)
+            .setTitle("Permiso denegado")
+            .setMessage("El permiso de $permissionName es necesario para esta funcionalidad. Por favor, habilítalo en la configuración de la aplicación.")
+            .setPositiveButton("Aceptar", null)
+            .show()
+    }
+}

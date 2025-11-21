@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CalendarViewCustom" parent="Theme.MaterialComponents.Light">
+        <item name="colorAccent">@color/teal_primary</item>
+        <item name="android:datePickerStyle">@style/DatePickerStyle</item>
+    </style>
+
+    <style name="DatePickerStyle" parent="android:Widget.Material.DatePicker">
+        <item name="android:headerBackground">@color/teal_primary</item>
+    </style>
+</resources>
