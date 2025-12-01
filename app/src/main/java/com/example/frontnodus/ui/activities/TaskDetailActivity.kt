@@ -1,8 +1,10 @@
-package com.example.frontnodus
+package com.example.frontnodus.ui.activities
+
+import com.example.frontnodus.R
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.frontnodus.adapter.TaskDetailPagerAdapter
+import com.example.frontnodus.ui.adapters.TaskDetailPagerAdapter
 import com.example.frontnodus.databinding.ActivityTaskDetailBinding
 import com.google.android.material.tabs.TabLayoutMediator
 

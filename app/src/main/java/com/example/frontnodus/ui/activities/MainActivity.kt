@@ -1,4 +1,6 @@
-package com.example.frontnodus
+package com.example.frontnodus.ui.activities
+
+import com.example.frontnodus.R
 
 import android.content.Intent
 import android.os.Bundle

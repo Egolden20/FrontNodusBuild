@@ -228,7 +228,7 @@
                         <ImageView
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:src="@drawable/ic_camera_black"
+                            android:src="@drawable/camara"
                             android:contentDescription="@string/camera" />
 
                     </LinearLayout>
@@ -247,7 +247,7 @@
                         <ImageView
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:src="@drawable/ic_video"
+                            android:src="@drawable/video"
                             android:contentDescription="@string/video" />
 
                     </LinearLayout>

@@ -1,4 +1,6 @@
-package com.example.frontnodus
+package com.example.frontnodus.ui.activities
+
+import com.example.frontnodus.R
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.frontnodus.adapter.TaskAdapter
-import com.example.frontnodus.model.Task
+import com.example.frontnodus.ui.adapters.TaskAdapter
+import com.example.frontnodus.domain.models.Task
 
 class HomeActivity : AppCompatActivity() {
 

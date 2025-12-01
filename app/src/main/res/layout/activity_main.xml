@@ -114,7 +114,7 @@
             android:id="@+id/ivGmail"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_gmail"
+            android:src="@drawable/gmail"
             android:contentDescription="Gmail"
             android:layout_marginEnd="24dp" />
 
@@ -123,7 +123,7 @@
             android:id="@+id/ivFacebook"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_facebook"
+            android:src="@drawable/facebook"
             android:contentDescription="Facebook"
             android:layout_marginEnd="24dp" />
 
@@ -132,7 +132,7 @@
             android:id="@+id/ivApple"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_apple"
+            android:src="@drawable/apple"
             android:contentDescription="Apple" />
 
     </LinearLayout>

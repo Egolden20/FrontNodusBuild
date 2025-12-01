@@ -15,6 +15,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Backend base URL for device testing. Update if your PC IP changes.
+        buildConfigField("String", "BACKEND_BASE_URL", "\"http://192.168.18.12:3000/graphql\"")
     }
 
     buildTypes {
@@ -35,6 +37,8 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        // Enable generation of BuildConfig so custom BuildConfig fields (like BACKEND_BASE_URL) work
+        buildConfig = true
     }
 }
 
@@ -45,6 +49,17 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    // Networking & GraphQL (simple Retrofit/OkHttp approach)
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.moshi:moshi:1.15.0")
+
+    // Coroutines and DataStore for token persistence
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    // Koin (runtime DI) - replaces Hilt
+    implementation("io.insert-koin:koin-android:3.4.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

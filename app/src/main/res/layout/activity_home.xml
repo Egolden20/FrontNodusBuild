@@ -116,7 +116,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_camera"
+                    android:src="@drawable/camara"
                     android:contentDescription="Camera" />
 
                 <TextView
@@ -153,7 +153,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_warning"
+                    android:src="@drawable/advertencia"
                     android:contentDescription="Warning" />
 
                 <TextView
@@ -187,10 +187,10 @@
                 android:padding="12dp">
 
                 <ImageView
-                    android:layout_width="40dp"
+                    android:layout_width="28dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_calendar"
-                    android:contentDescription="Calendar" />
+                    android:contentDescription="Calendar"
+                    android:src="@drawable/calendario" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -225,7 +225,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_plus"
+                    android:src="@drawable/plus"
                     android:contentDescription="Plus" />
 
                 <TextView
