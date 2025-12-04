@@ -17,7 +17,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Backend base URL for device testing. Update if your PC IP changes.
-        buildConfigField("String", "BACKEND_BASE_URL", "\"http://192.168.18.12:3000/graphql\"")
+        buildConfigField("String", "BACKEND_BASE_URL", "\"https://nonfactual-scannable-lettie.ngrok-free.dev/graphql\"")
     }
 
     buildTypes {

@@ -17,8 +17,10 @@ data class FilePart(val fieldName: String, val filename: String, val bytes: Byte
 class GraphQLClient(private val baseUrl: String, private val tokenProvider: suspend () -> String?) {
 
     private val client: OkHttpClient = OkHttpClient.Builder()
-        .connectTimeout(15, TimeUnit.SECONDS)
-        .readTimeout(60, TimeUnit.SECONDS)
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(5, TimeUnit.MINUTES)
+        .writeTimeout(5, TimeUnit.MINUTES)
+        .callTimeout(6, TimeUnit.MINUTES)
         .build()
 
     suspend fun executeMutation(query: String, variables: JSONObject? = null): JSONObject =

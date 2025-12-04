@@ -100,27 +100,37 @@ class ChatSocketExampleActivity : AppCompatActivity() {
                 Log.d(TAG, "history: ${'$'}messages")
                 // update UI on main thread
                 try {
-                    val resp = JSONObject(messages)
-                    val data = resp.optJSONObject("data")
-                    val msgs = data?.optJSONObject("messages")?.optJSONArray("items")
-                    if (msgs != null) {
-                        for (i in 0 until msgs.length()) {
-                            val m = msgs.getJSONObject(i)
-                            val message = Message(
-                                id = m.optString("id", null),
-                                chatId = m.optString("chatId", null),
-                                from = m.optString("from", null),
-                                text = m.optString("text", ""),
-                                createdAt = m.optString("createdAt", null)
-                            )
-                            runOnUiThread {
-                                adapter.addMessage(message)
+                    val trimmed = messages.trim()
+                    if (!trimmed.startsWith("{")) {
+                        Log.w(TAG, "fetchMessages returned non-JSON body: ${'$'}trimmed")
+                    } else {
+                        val resp = JSONObject(trimmed)
+                        val data = resp.optJSONObject("data")
+                        // messages may be object or array depending on server; handle both
+                        val msgsArray = data?.optJSONObject("messages")?.optJSONArray("items")
+                            ?: data?.optJSONArray("messages")
+                        if (msgsArray != null) {
+                            for (i in 0 until msgsArray.length()) {
+                                val m = msgsArray.getJSONObject(i)
+                                val message = Message(
+                                    id = m.optString("id", null),
+                                    chatId = m.optString("chatId", null),
+                                    from = m.optString("from", null),
+                                    text = m.optString("text", ""),
+                                    createdAt = m.optString("createdAt", null)
+                                )
+                                runOnUiThread {
+                                    adapter.addMessage(message)
+                                }
                             }
+                            runOnUiThread { rv.scrollToPosition(adapter.itemCount - 1) }
+                        } else {
+                            Log.w(TAG, "No messages array found in GraphQL response")
                         }
-                        runOnUiThread { rv.scrollToPosition(adapter.itemCount - 1) }
                     }
                 } catch (e: Exception) {
                     Log.e(TAG, "parse history", e)
+                    Log.e(TAG, "raw body: ${'$'}messages")
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "fetch messages error", e)
@@ -154,8 +164,8 @@ class ChatSocketExampleActivity : AppCompatActivity() {
             .build()
 
         val resp = okHttp.newCall(req).execute()
-        val respJson = JSONObject(resp.body?.string() ?: "{}")
-        return respJson.toString()
+        val bodyStr = resp.body?.string() ?: ""
+        return bodyStr
     }
 
     override fun onDestroy() {

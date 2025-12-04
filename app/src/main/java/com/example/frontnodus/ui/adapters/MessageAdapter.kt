@@ -30,11 +30,11 @@ class MessageAdapter(private val meId: String?) : RecyclerView.Adapter<MessageAd
         // simple alignment: if from == meId, align end, else start
         val params = holder.tvText.layoutParams as ViewGroup.MarginLayoutParams
         if (msg.from != null && msg.from == meId) {
-            holder.tvText.setBackgroundResource(android.R.color.holo_blue_dark)
+            holder.tvText.setBackgroundResource(com.example.frontnodus.R.drawable.bubble_right)
             params.marginStart = 80
             params.marginEnd = 0
         } else {
-            holder.tvText.setBackgroundResource(android.R.color.darker_gray)
+            holder.tvText.setBackgroundResource(com.example.frontnodus.R.drawable.bubble_left)
             params.marginStart = 0
             params.marginEnd = 80
         }
