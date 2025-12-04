@@ -9,8 +9,10 @@ import com.example.frontnodus.R
 import com.example.frontnodus.domain.models.Comment
 
 class CommentAdapter(
-    private val comments: List<Comment>,
-    private val onCommentClick: (Comment) -> Unit
+    private val comments: MutableList<Comment>,
+    private val onCommentClick: (Comment) -> Unit,
+    private val onEditClick: (Comment) -> Unit,
+    private val onDeleteClick: (Comment) -> Unit
 ) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 
     inner class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -18,16 +20,22 @@ class CommentAdapter(
         val tvCommentTime: TextView = itemView.findViewById(R.id.tvCommentTime)
         val tvCommentStatus: TextView = itemView.findViewById(R.id.tvCommentStatus)
         val tvCommentText: TextView = itemView.findViewById(R.id.tvCommentText)
+        val btnEdit: TextView = itemView.findViewById(R.id.btnEditComment)
+        val btnDelete: TextView = itemView.findViewById(R.id.btnDeleteComment)
 
         fun bind(comment: Comment) {
             tvCommentUser.text = comment.userName
             tvCommentTime.text = comment.timeAgo
-            tvCommentStatus.text = comment.status
+            // hide status badge - comments no longer have status
+            tvCommentStatus.visibility = View.GONE
             tvCommentText.text = comment.commentText
 
             itemView.setOnClickListener {
                 onCommentClick(comment)
             }
+
+            btnEdit.setOnClickListener { onEditClick(comment) }
+            btnDelete.setOnClickListener { onDeleteClick(comment) }
         }
     }
 

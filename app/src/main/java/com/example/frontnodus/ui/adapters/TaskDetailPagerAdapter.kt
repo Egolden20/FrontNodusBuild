@@ -7,16 +7,20 @@ import com.example.frontnodus.ui.fragments.ChecklistFragment
 import com.example.frontnodus.ui.fragments.CommentsFragment
 import com.example.frontnodus.ui.fragments.FilesFragment
 
-class TaskDetailPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
+class TaskDetailPagerAdapter(activity: FragmentActivity, private val taskId: String?) : FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
+        val fragment: Fragment = when (position) {
             0 -> ChecklistFragment()
             1 -> FilesFragment()
             2 -> CommentsFragment()
             else -> ChecklistFragment()
         }
+        fragment.arguments = android.os.Bundle().apply {
+            putString("TASK_ID", taskId)
+        }
+        return fragment
     }
 }

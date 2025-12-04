@@ -8,4 +8,15 @@
     <style name="DatePickerStyle" parent="android:Widget.Material.DatePicker">
         <item name="android:headerBackground">@color/teal_primary</item>
     </style>
+
+    <!-- Calendar specific text appearances to force black numbers -->
+    <style name="CalendarWeekDay" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CalendarDate" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

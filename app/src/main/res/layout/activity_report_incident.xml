@@ -94,17 +94,31 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/etProject"
+                <Spinner
+                    android:id="@+id/spProject"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="@string/project_hint"
-                    android:textColorHint="#99FFFFFF"
+                    android:layout_marginTop="8dp"
+                    android:spinnerMode="dropdown"
+                    android:popupBackground="@color/white" />
+
+                <!-- Task selector (optional) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/task"
                     android:textColor="@color/white"
-                    android:background="@drawable/input_white_underline"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:layout_marginTop="8dp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="12dp" />
+
+                <Spinner
+                    android:id="@+id/spTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:spinnerMode="dropdown"
+                    android:popupBackground="@color/white" />
 
                 <!-- Tipo de incidencia -->
                 <TextView
@@ -115,18 +129,13 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_marginTop="16dp" />
-
-                <EditText
-                    android:id="@+id/etIncidentType"
+                <Spinner
+                    android:id="@+id/spIncidentType"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="@string/incident_type_hint"
-                    android:textColorHint="#99FFFFFF"
-                    android:textColor="@color/white"
-                    android:background="@drawable/input_white_underline"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp"
+                    android:spinnerMode="dropdown"
+                    android:popupBackground="@color/white" />
 
                 <!-- Prioridad -->
                 <TextView
@@ -137,18 +146,13 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_marginTop="16dp" />
-
-                <EditText
-                    android:id="@+id/etPriority"
+                <Spinner
+                    android:id="@+id/spPriority"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="@string/priority_hint"
-                    android:textColorHint="#99FFFFFF"
-                    android:textColor="@color/white"
-                    android:background="@drawable/input_white_underline"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp"
+                    android:spinnerMode="dropdown"
+                    android:popupBackground="@color/white" />
 
                 <!-- Descripción detallada -->
                 <TextView
@@ -253,6 +257,24 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <!-- Upload button removed: only Camera and Video allowed -->
+
+                <!-- Previews of selected evidence (thumbnails / links) -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fillViewport="true">
+
+                    <LinearLayout
+                        android:id="@+id/previewContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="8dp" />
+
+                </HorizontalScrollView>
 
             </LinearLayout>
 

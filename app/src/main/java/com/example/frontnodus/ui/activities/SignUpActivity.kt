@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import com.example.frontnodus.data.repository.AuthRepository
+import com.example.frontnodus.utils.UserUtils
 import org.json.JSONObject
 
 class SignUpActivity : AppCompatActivity() {
@@ -52,10 +53,30 @@ class SignUpActivity : AppCompatActivity() {
 
             lifecycleScope.launch {
                 try {
-                    // minimal profile as JSON (expand if your form has more fields)
+                    // Build profile JSON from form fields (firstName/lastName from Full Name)
                     val profile = JSONObject()
-                    val result = authRepository.register(email, password, profile)
-                    Toast.makeText(this@SignUpActivity, "Registrado: ${result.user.optString("email")}", Toast.LENGTH_SHORT).show()
+                    try {
+                            val firstField = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etFirstName)
+                            val lastField = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etLastName)
+                            val first = firstField?.text?.toString()?.trim()
+                            val last = lastField?.text?.toString()?.trim()
+                            if (!first.isNullOrBlank()) profile.put("firstName", first)
+                            if (!last.isNullOrBlank()) profile.put("lastName", last)
+                        // If you add a phone field later, include it only if present in the layout
+                        val phoneFieldId = resources.getIdentifier("etPhone", "id", packageName)
+                        val phoneField = if (phoneFieldId != 0) {
+                            findViewById<com.google.android.material.textfield.TextInputEditText>(phoneFieldId)
+                        } else null
+                        val phone = phoneField?.text?.toString()?.trim()
+                        if (!phone.isNullOrBlank()) profile.put("phone", phone)
+                    } catch (_: Exception) { }
+
+                    // If profile has no fields, send null so the backend receives no empty profile object
+                    val profileToSend: JSONObject? = if (profile.length() > 0) profile else null
+                    val result = authRepository.register(email, password, profileToSend)
+
+                    val displayName = UserUtils.extractDisplayName(result.user)
+                    Toast.makeText(this@SignUpActivity, "Registrado: $displayName", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@SignUpActivity, HomeActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)

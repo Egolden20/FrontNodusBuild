@@ -10,12 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.frontnodus.ui.adapters.EventListAdapter
 import com.example.frontnodus.databinding.FragmentListBinding
 import com.example.frontnodus.domain.models.Event
+import com.example.frontnodus.data.repository.EventRepository
+import org.koin.android.ext.android.inject
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import android.util.Log
 
 class ListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private lateinit var eventListAdapter: EventListAdapter
+    private val eventRepository: EventRepository by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,60 +35,35 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        loadEvents()
     }
 
     private fun setupRecyclerView() {
-        // Static all events data
-        val allEvents = listOf(
-            Event(
-                id = 1,
-                title = "Inspección de cimentación Bloque A",
-                location = "Realizado por: Las Terrazas",
-                date = "2025-10-25",
-                time = "09:00",
-                day = "25",
-                monthYear = "Oct",
-                status = "Pendiente"
-            ),
-            Event(
-                id = 2,
-                title = "Inspección de cimentación Bloque A",
-                location = "Torre Residencial Sur",
-                date = "2025-10-41",
-                time = "09:00",
-                day = "41",
-                monthYear = "Oct",
-                status = "Pendiente"
-            ),
-            Event(
-                id = 3,
-                title = "Inspección de cimentación Bloque A",
-                location = "Realizado por: Las Flores",
-                date = "2025-10-42",
-                time = "09:00",
-                day = "42",
-                monthYear = "Oct",
-                status = "Pendiente"
-            ),
-            Event(
-                id = 4,
-                title = "Inspección de cimentación Bloque A",
-                location = "Realizado por: Las Flores",
-                date = "2025-10-45",
-                time = "09:00",
-                day = "45",
-                monthYear = "Oct",
-                status = "Pendiente"
-            )
-        )
-
-        eventListAdapter = EventListAdapter(allEvents) { event ->
+        eventListAdapter = EventListAdapter(emptyList()) { event ->
             Toast.makeText(requireContext(), "Evento: ${event.title}", Toast.LENGTH_SHORT).show()
         }
 
         binding.rvAllEvents.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = eventListAdapter
+        }
+    }
+
+    private fun loadEvents() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val events = eventRepository.getEventsForUser()
+                Log.d("ListFrag", "loaded events count=${events.size}")
+
+                // update adapter with fetched events
+                eventListAdapter = EventListAdapter(events) { event ->
+                    Toast.makeText(requireContext(), "Evento: ${event.title}", Toast.LENGTH_SHORT).show()
+                }
+                binding.rvAllEvents.adapter = eventListAdapter
+            } catch (e: Exception) {
+                Log.e("ListFrag", "error loading events", e)
+                Toast.makeText(requireContext(), e.message ?: "Error cargando eventos", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

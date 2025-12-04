@@ -1,7 +1,7 @@
 package com.example.frontnodus.model
 
 data class Task(
-    val id: Int,
+    val id: String,
     val title: String,
     val subtitle: String,
     val date: String,

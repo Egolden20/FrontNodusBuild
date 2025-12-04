@@ -23,7 +23,8 @@ class EventListAdapter(
         fun bind(event: Event) {
             tvEventStatus.text = event.status
             tvEventTitle.text = event.title
-            tvEventLocation.text = event.location
+            // Prefer description if available, otherwise show location
+            tvEventLocation.text = if (event.description.isNotBlank()) event.description else event.location
             tvEventDate.text = event.date
             tvEventTime.text = event.time
 

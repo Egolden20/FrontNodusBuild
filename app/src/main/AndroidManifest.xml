@@ -46,7 +46,19 @@
             android:name="com.example.frontnodus.ui.activities.HomeActivity"
             android:exported="false" />
         <activity
+            android:name="com.example.frontnodus.ui.activities.ProjectListActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.frontnodus.ui.activities.ProjectTasksActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.frontnodus.ui.activities.ProjectDetailActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.frontnodus.ui.activities.RegisterAdvanceActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.frontnodus.ui.activities.AttachmentViewerActivity"
             android:exported="false" />
         <activity
             android:name="com.example.frontnodus.ui.activities.ReportIncidentActivity"
@@ -56,6 +68,18 @@
             android:exported="false" />
         <activity
             android:name="com.example.frontnodus.ui.activities.TaskDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.frontnodus.ui.activities.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.frontnodus.ui.activities.ScannerActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.frontnodus.ui.activities.ChatListActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.frontnodus.ui.activities.ChatActivity"
             android:exported="false" />
         
         <!-- FileProvider for Camera -->

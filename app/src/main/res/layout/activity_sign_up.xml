@@ -46,12 +46,12 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="32dp" />
 
-    <!-- Full Name Input -->
+    <!-- First Name Input -->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilFullName"
+        android:id="@+id/tilFirstName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Full Name"
+        android:hint="First Name"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:hintTextColor="@color/teal_dark"
@@ -63,7 +63,35 @@
         android:layout_marginEnd="32dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etFullName"
+            android:id="@+id/etFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:background="@drawable/input_underline"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Last Name Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilLastName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Last Name"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintTextColor="@color/teal_dark"
+        app:layout_constraintTop_toBottomOf="@id/tilFirstName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -83,7 +111,7 @@
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:hintTextColor="@color/teal_dark"
-        app:layout_constraintTop_toBottomOf="@id/tilFullName"
+        app:layout_constraintTop_toBottomOf="@id/tilLastName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"

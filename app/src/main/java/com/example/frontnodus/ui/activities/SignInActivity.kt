@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import com.example.frontnodus.data.repository.AuthRepository
+import com.example.frontnodus.utils.UserUtils
 
 class SignInActivity : AppCompatActivity() {
     private val authRepository: AuthRepository by inject()
@@ -52,7 +53,9 @@ class SignInActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 try {
                     val result = authRepository.login(email, password)
-                    Toast.makeText(this@SignInActivity, "Bienvenido: ${result.user.optString("email")}", Toast.LENGTH_SHORT).show()
+
+                    val displayName = UserUtils.extractDisplayName(result.user)
+                    Toast.makeText(this@SignInActivity, "Bienvenido: $displayName", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@SignInActivity, HomeActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)

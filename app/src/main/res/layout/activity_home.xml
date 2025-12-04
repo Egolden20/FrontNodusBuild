@@ -39,16 +39,16 @@
         android:contentDescription="Wifi"
         app:layout_constraintTop_toTopOf="@id/ivMenu"
         app:layout_constraintBottom_toBottomOf="@id/ivMenu"
-        app:layout_constraintEnd_toStartOf="@id/ivNotification"
+        app:layout_constraintEnd_toStartOf="@id/ivUser"
         android:layout_marginEnd="12dp" />
 
-    <!-- Notification Icon -->
+    <!-- User Icon -->
     <ImageView
-        android:id="@+id/ivNotification"
+        android:id="@+id/ivUser"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_notification"
-        android:contentDescription="Notification"
+        android:src="@drawable/ic_user"
+        android:contentDescription="User"
         app:layout_constraintTop_toTopOf="@id/ivMenu"
         app:layout_constraintBottom_toBottomOf="@id/ivMenu"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenido Frank"
+        android:text="Bienvenido"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -73,7 +73,7 @@
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gestión: 15 de octubre"
+        android:text="Gestión"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/tvWelcome"
@@ -204,9 +204,9 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- More Button -->
+        <!-- Chat Button (antes 'Más') -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardMore"
+            android:id="@+id/cardChat"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_columnWeight="1"
@@ -225,13 +225,13 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/plus"
-                    android:contentDescription="Plus" />
+                    android:src="@drawable/ic_chat"
+                    android:contentDescription="Chat" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/more"
+                    android:text="Chat"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -242,9 +242,9 @@
 
     </GridLayout>
 
-    <!-- My Tasks Section -->
+    <!-- Projects Section -->
     <LinearLayout
-        android:id="@+id/llTasksHeader"
+        android:id="@+id/llProjectsHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -259,13 +259,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/my_tasks"
+            android:text="Ver proyectos y sus tareas"
             android:textColor="@color/teal_dark"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvViewAll"
+            android:id="@+id/tvViewAllProjects"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/view_all"
@@ -274,12 +274,25 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- RecyclerView for Tasks -->
+    <!-- RecyclerView for Project Cards -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProjects"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/llProjectsHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="12dp"
+        tools:listitem="@layout/item_project" />
+
+    <!-- RecyclerView for Tasks (fills remaining space below projects) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTasks"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/llTasksHeader"
+        app:layout_constraintTop_toBottomOf="@id/rvProjects"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -35,7 +35,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/task_detail"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -79,7 +79,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Inspección de cimentación Bloque A"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -90,7 +90,7 @@
                     android:id="@+id/tvTaskStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pendiente"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="10sp"
                     android:background="@drawable/badge_status_small"
@@ -101,24 +101,24 @@
                     android:layout_marginStart="8dp" />
             </LinearLayout>
 
-            <!-- Task Description -->
-            <EditText
+            <!-- Task Description (read-only) -->
+            <TextView
                 android:id="@+id/tvTaskDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Realizar la fundación completa de la base del nivel 2 verificando niveles y resistencia del concreto según especificaciones técnicas"
+                android:text=""
                 android:textColor="@color/white"
-                android:textColorHint="#99FFFFFF"
                 android:textSize="13sp"
                 android:layout_marginTop="12dp"
                 android:background="@android:color/transparent"
-                android:hint="Descripción de la tarea"
-                android:inputType="textMultiLine"
                 android:minLines="2"
-                android:maxLines="4"
+                android:maxLines="8"
                 android:gravity="start"
                 android:paddingTop="8dp"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="8dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:longClickable="false" />
 
             <!-- Info Grid -->
             <LinearLayout
@@ -145,7 +145,7 @@
                         android:id="@+id/tvDeadline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="25 Oct 2025"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold"
@@ -170,7 +170,7 @@
                         android:id="@+id/tvAssigned"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Frank Juan"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold"
@@ -195,7 +195,7 @@
                         android:id="@+id/tvProject"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Romareda"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold"

@@ -3,6 +3,7 @@ package com.example.frontnodus.domain.models
 data class Event(
     val id: Int,
     val title: String,
+    val description: String,
     val location: String,
     val date: String,
     val time: String,
