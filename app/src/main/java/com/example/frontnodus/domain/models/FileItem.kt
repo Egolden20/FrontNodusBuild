@@ -1,8 +1,11 @@
 package com.example.frontnodus.domain.models
 
 data class FileItem(
-    val id: Int,
+    val id: String,
     val fileName: String,
-    val fileSize: String,
-    val uploadDate: String
+    val title: String,
+    val description: String?,
+    val fileUrl: String,
+    val uploadDate: String,
+    val source: String // "incident" or "advance"
 )

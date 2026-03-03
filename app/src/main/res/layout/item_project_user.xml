@@ -25,6 +25,15 @@
             android:scaleType="centerCrop"
             android:layout_marginEnd="12dp" />
 
+        <View
+            android:id="@+id/vStatusIndicator"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/status_indicator_offline"
+            android:layout_marginStart="-20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"

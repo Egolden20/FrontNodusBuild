@@ -18,8 +18,8 @@ class FileAdapter(
         val tvFileInfo: TextView = itemView.findViewById(R.id.tvFileInfo)
 
         fun bind(file: FileItem) {
-            tvFileName.text = file.fileName
-            tvFileInfo.text = "${file.fileSize} · ${file.uploadDate}"
+            tvFileName.text = file.title
+            tvFileInfo.text = "${file.source} · ${file.uploadDate}"
 
             itemView.setOnClickListener {
                 onFileClick(file)

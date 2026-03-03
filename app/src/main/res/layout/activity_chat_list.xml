@@ -4,43 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="@color/white">
 
-    <TextView
-        android:id="@+id/tvChatListTitle"
+    <!-- Header with Title -->
+    <LinearLayout
+        android:id="@+id/layoutHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Mensajería"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/teal_dark"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/teal_dark"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/tvChatListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mensajería"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Search Bar -->
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_search"
+            android:drawablePadding="8dp"
+            android:hint="Buscar conversaciones..."
+            android:padding="12dp"
+            android:textColor="@color/teal_dark"
+            android:textColorHint="#9E9E9E"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Project Selector -->
     <Spinner
         android:id="@+id/spProjects"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
         android:background="@drawable/item_card_bg"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tvChatListTitle"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
 
+    <!-- Conversations List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProjectUsers"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:clipToPadding="false"
         android:paddingBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/spProjects"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_project_user" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spProjects"
+        tools:listitem="@layout/item_chat_conversation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

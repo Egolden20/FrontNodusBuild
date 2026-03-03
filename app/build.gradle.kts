@@ -61,6 +61,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // Lifecycle runtime KTX for lifecycleScope and related extensions
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-process:2.6.1")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     // Koin (runtime DI) - replaces Hilt
     implementation("io.insert-koin:koin-android:3.4.0")
@@ -70,6 +71,11 @@ dependencies {
     kapt("androidx.room:room-compiler:2.6.1")
     // Socket.IO client
     implementation("io.socket:socket.io-client:2.0.1")
+    // Glide for image loading
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    kapt("com.github.bumptech.glide:compiler:4.16.0")
+    // PhotoView for zoom and pan
+    implementation("com.github.chrisbanes:PhotoView:2.3.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
